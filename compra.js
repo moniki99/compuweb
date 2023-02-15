@@ -19,12 +19,32 @@ $(document).ready(function() {
         console.log("He clickado el boton de compra");
         console.log($("#accesorios").val());
         console.log(accesorios[$("#accesorios").val()]);
-        var nombre = $('<td>').text(accesorios[$("#accesorios").val()].etiqueta);
-        var cantidad = $('<td>').text($('#cantidad').val());
-        var precio = $('<td>').text((accesorios[$("#accesorios").val()].precio.toFixed(2)*parseFloat($('#cantidad').val())).toFixed(2));
 
-        var tr = $('<tr>').append(nombre).append(cantidad).append(precio);
         
+        console.log($("#accesorios").val());
+        var ref = $("#accesorios").val();
+
+
+        if( $("#accesorios").val() == $("#"+ ref).attr("id") ){
+            console.log("encontrado");
+            console.log($("#"+ref+".cantidad").val());
+            //console.log(document.getElementById(ref).getElementsByClassName('cantidad'));
+            console.log($("td."+ref+".cantidad").val());
+            //console.log(parseFloat($("#"+ref).text($('#cantidad').val())+ parseFloat( $("#"+ref+".cantidad").text())));
+            var cantidad_ini = parseInt($(".cantidad").text());
+            var cantidad_total = parseInt($('#cantidad').val()) + parseInt(cantidad_ini);
+            console.log(cantidad_total);
+            $(".cantidad").text(cantidad_total);
+            //cantidad_total=0;
+        }else{
+            var nombre = $('<td>').text(accesorios[$("#accesorios").val()].etiqueta);
+            var cantidad = $('<td>').text($('#cantidad').val()).attr("class", "cantidad");
+            var precio = $('<td>').text((accesorios[$("#accesorios").val()].precio.toFixed(2)*parseFloat($('#cantidad').val())).toFixed(2));
+
+            var tr = $('<tr>').append(nombre).append(cantidad).append(precio).attr("id", $("#accesorios").val());
+        }
+
+
         $("#total").before(tr); 
         
         // Calcular el precio total:
@@ -34,19 +54,13 @@ $(document).ready(function() {
         //console.log(total + precio);
 
 
-
-        $("#accesorios").change(function() {
-            // Código a ejecutar cuando cambie el valor del control.
-            //hola
-            $('#cantidad').val(1);
-          });
-          
-        
-          
-
-
-
       });
+
+      $("#accesorios").change(function() {
+        // Código a ejecutar cuando cambie el valor del control.
+        $('#cantidad').val(1);
+      });
+      
 }
   
   
