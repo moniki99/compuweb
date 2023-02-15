@@ -37,6 +37,7 @@ $(document).ready(function() {
 
         $("#accesorios").change(function() {
             // Código a ejecutar cuando cambie el valor del control.
+            //hola
             $('#cantidad').val(1);
           });
           
