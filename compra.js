@@ -24,29 +24,32 @@ $(document).ready(function() {
         console.log($("#accesorios").val());
         var ref = $("#accesorios").val();
 
-
-        if( $("#accesorios").val() == $("#"+ ref).attr("id") ){
+        // Comprobamos si el valor del accesorio a añadir está ya en la lista de la compra:
+        if( $("#accesorios").val() == $("#"+ ref).attr("id") ){ 
             console.log("encontrado");
-            //var literal = 
-            console.log($("#cantidad_"+ref).text());
-            //console.log(document.getElementById(ref).getElementsByClassName('cantidad'));
-            console.log($("td."+ref+".cantidad").val());
-            //console.log(parseFloat($("#"+ref).text($('#cantidad').val())+ parseFloat( $("#"+ref+".cantidad").text())));
-            var cantidad_ini = parseInt($("#cantidad_"+ref).text());
-            var cantidad_total = parseInt($('#cantidad').val()) + parseInt(cantidad_ini);
+            // * OTRA FORMA QUE QUIERO PROBAR: *
+                // Con esta manera me ahorro crearle un id a cantidad (en el else)
+                // var tr = $("#"+ ref);
+                // console.log(tr);
+                // var tdCantidad = tr.find("td:nth-child(2)").text(); // esto me devuelve la cantidad tb
+                // console.log(tdCantidad);
+                // console.log($("#cantidad_"+ref).text());
+            
+            var cantidad_ini = parseInt($("#cantidad_"+ref).text()); // buscamos la cantidad inicial que hay en la tabla
+            
+            var cantidad_total = parseInt($('#cantidad').val()) + cantidad_ini; // sumamos la cantidad inicial a la del valor del artículo seleccionado
             console.log(cantidad_total);
-            $("#cantidad_"+ref).text(cantidad_total);
-            //cantidad_total=0;
+            
+            $("#cantidad_"+ref).text(cantidad_total); // asignamos la cantidad total
+           
         }else{
             var nombre = $('<td>').text(accesorios[$("#accesorios").val()].etiqueta);
-            var cantidad = $('<td>').text($('#cantidad').val()).attr("id", "cantidad_"+ref);
+            var cantidad = $('<td>').text($('#cantidad').val()).attr("id", "cantidad_"+ref); // le añadimos el atributo id para poder seleccionarlo
             var precio = $('<td>').text((accesorios[$("#accesorios").val()].precio.toFixed(2)*parseFloat($('#cantidad').val())).toFixed(2));
 
             var tr = $('<tr>').append(nombre).append(cantidad).append(precio).attr("id", $("#accesorios").val());
-        }
-
-
-        $("#total").before(tr); 
+            $("#total").before(tr); 
+        }        
         
         // Calcular el precio total:
         var total = parseFloat($('#totalval').text());
