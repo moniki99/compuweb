@@ -27,18 +27,19 @@ $(document).ready(function() {
 
         if( $("#accesorios").val() == $("#"+ ref).attr("id") ){
             console.log("encontrado");
-            console.log($("#"+ref+".cantidad").val());
+            //var literal = 
+            console.log($("#cantidad_"+ref).text());
             //console.log(document.getElementById(ref).getElementsByClassName('cantidad'));
             console.log($("td."+ref+".cantidad").val());
             //console.log(parseFloat($("#"+ref).text($('#cantidad').val())+ parseFloat( $("#"+ref+".cantidad").text())));
-            var cantidad_ini = parseInt($(".cantidad").text());
+            var cantidad_ini = parseInt($("#cantidad_"+ref).text());
             var cantidad_total = parseInt($('#cantidad').val()) + parseInt(cantidad_ini);
             console.log(cantidad_total);
-            $(".cantidad").text(cantidad_total);
+            $("#cantidad_"+ref).text(cantidad_total);
             //cantidad_total=0;
         }else{
             var nombre = $('<td>').text(accesorios[$("#accesorios").val()].etiqueta);
-            var cantidad = $('<td>').text($('#cantidad').val()).attr("class", "cantidad");
+            var cantidad = $('<td>').text($('#cantidad').val()).attr("id", "cantidad_"+ref);
             var precio = $('<td>').text((accesorios[$("#accesorios").val()].precio.toFixed(2)*parseFloat($('#cantidad').val())).toFixed(2));
 
             var tr = $('<tr>').append(nombre).append(cantidad).append(precio).attr("id", $("#accesorios").val());
